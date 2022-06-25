@@ -13,13 +13,39 @@ void print(int arr[], int size_arr)
 	cout << endl;
 }
 
-/*void record(std::ofstream File_Record, int arr[], int size_arr)
+void record(std::ofstream &File_Record, int arr[], int size_arr)
 {
+	File_Record << size_arr << endl;
 	for (int i = 0; i < size_arr; ++i)
 	{
 		File_Record << arr[i] << " ";
 	}
+	File_Record << endl;
+}
+
+/*int create_arr(std::ifstream& File_to_Use, string str)
+{
+	File_to_Use >> str;
+	int Size_1 = stoi(str);
+	int* Arr_1 = new int[Size_1];
+
+	for (int i = 0; i < Size_1 && !File_to_Use.eof(); ++i)
+	{
+		File_to_Use >> Arr_1[i];
+	}
+	return Size_1 & Arr_1;
 }*/
+
+void Swap(int arr[], int size_arr)
+{
+	for (int i = size_arr - 1; i > 0; --i)
+	{
+		swap( arr[i], arr[i - 1] );
+	}
+	int roll = arr[size_arr - 1];
+	arr[size_arr - 1] = arr[0];
+	arr[0] = roll;
+}
 
 int main()
 {
@@ -31,7 +57,7 @@ int main()
 
 	if (File_to_Use.is_open())
 	{
-		File_to_Use >> str;
+        File_to_Use >> str;
 		int Size_1 = stoi(str);
 		int* Arr_1 = new int[Size_1];
 
@@ -48,25 +74,21 @@ int main()
 		{
 			File_to_Use >> Arr_2[i];
 		}
-		
-		File_Record << Size_1 << endl;
-		for (int i = 0; i < Size_1; ++i)
-		{
-			File_Record << Arr_1[i] << " ";
-		}
-		File_Record << endl;
 
-		File_Record << Size_2 << endl;
-		for (int i = 0; i < Size_2; ++i)
-		{
-			File_Record << Arr_2[i] << " ";
-		}
-		File_Record << endl;
+		Swap(Arr_1, Size_1);
+
+		print(Arr_1, Size_1);
+		
+		record(File_Record, Arr_2, Size_2);
+		record(File_Record, Arr_1, Size_1);
+
 
 		delete[] Arr_1;
 		Arr_1 = nullptr;
 		delete[] Arr_2;
 		Arr_2 = nullptr;
+
+		cout << "Запись выполнена успешно. " << endl;
 	}
 	else
 	{

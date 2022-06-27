@@ -13,7 +13,35 @@ void print(int arr[], int size_arr)
 	cout << endl;
 }
 
-void record(std::ofstream &File_Record, int arr[], int size_arr)
+void record1(std::ofstream &File_Record, int arr[], int size_arr)
+{
+	File_Record << size_arr << endl;
+	for (int i = 1; i < size_arr; ++i)
+	{
+		File_Record << arr[i] << " ";
+		if (i == size_arr - 1)
+		{
+			File_Record << arr[0];
+		}
+	}
+	File_Record << endl;
+}
+
+void record2(std::ofstream& File_Record, int arr[], int size_arr)
+{
+	File_Record << size_arr << endl;
+	for (int i = 0; i < size_arr - 1; ++i)
+	{
+		if (i == 0)
+		{
+		   File_Record << arr[size_arr-1] << " ";
+		}
+		File_Record << arr[i] << " ";
+	}
+	File_Record << endl;
+}
+
+/*void record(std::ofstream &File_Record, int arr[], int size_arr)
 {
 	File_Record << size_arr << endl;
 	for (int i = 0; i < size_arr; ++i)
@@ -21,7 +49,7 @@ void record(std::ofstream &File_Record, int arr[], int size_arr)
 		File_Record << arr[i] << " ";
 	}
 	File_Record << endl;
-}
+}*/
 
 /*int create_arr(std::ifstream& File_to_Use, string str)
 {
@@ -36,16 +64,6 @@ void record(std::ofstream &File_Record, int arr[], int size_arr)
 	return Size_1 & Arr_1;
 }*/
 
-void Swap(int arr[], int size_arr)
-{
-	for (int i = size_arr - 1; i > 0; --i)
-	{
-		swap( arr[i], arr[i - 1] );
-	}
-	int roll = arr[size_arr - 1];
-	arr[size_arr - 1] = arr[0];
-	arr[0] = roll;
-}
 
 int main()
 {
@@ -75,12 +93,10 @@ int main()
 			File_to_Use >> Arr_2[i];
 		}
 
-		Swap(Arr_1, Size_1);
-
-		print(Arr_1, Size_1);
+		//print(Arr_1, Size_1);
 		
-		record(File_Record, Arr_2, Size_2);
-		record(File_Record, Arr_1, Size_1);
+		record2(File_Record, Arr_2, Size_2);
+		record1(File_Record, Arr_1, Size_1);
 
 
 		delete[] Arr_1;
